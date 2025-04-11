@@ -9,7 +9,7 @@ import Home from "./pages/Home"
 import Signin from "./pages/SignIn"
 import Sidenav from "./components/sidenav"
 import Field from "./pages/Field"
-import Alternatif from "./pages/Data-alternatif"
+import Dataset from "./pages/Data-set"
 import Penilaian from "./pages/Data-penilaian"
 import SubKriteria from "./pages/Data-subkriteria"
 import PenilaianAlternatif from "./pages/Penilaian"
@@ -51,9 +51,9 @@ function App() {
               </PrivateRoute>
             }/>
 
-            <Route path="/alternatif" element={
+            <Route path="/dataset" element={
               <PrivateRoute requiredRole={["Super Admin" , "Koor. Personal Trainer", "Manajer"]}>
-                <Alternatif />
+                <Dataset />
               </PrivateRoute>
             }/>
 

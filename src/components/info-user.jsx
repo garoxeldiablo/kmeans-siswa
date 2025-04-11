@@ -6,15 +6,15 @@ export default function Infouser(){
     const role = useSelector((state) => state.jabatan)
     return(
         <>
-            <div class="flex justify-between mb-4 rounded">
-                <div>
-                    <h1 class="text-3xl font-semibold text-gray-700">
-                        Hai, {user}
-                    </h1>
-                    <p className="text-gray-500 italic">{role}</p>
-                </div>
+            <div class="flex items-center justify-between mb-4 rounded">
                 <div>
                     <img src={logouser} alt="prf" />
+                </div>
+                <div>
+                    <h1 class="text-xl font-semibold text-gray-50">
+                        Hai, {user}
+                    </h1>
+                    <p className="text-gray-100 italic">{role}</p>
                 </div>
             </div>
         </>
