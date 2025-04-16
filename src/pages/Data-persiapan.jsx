@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RingLoader } from "react-spinners";
 
-export default function Penilaian(){
+export default function PersiapanData(){
 
     const navigate = useNavigate()
 
     const [loading, setLoading] = useState(false)
-    const [alternatif,setAlternatif] = useState([])
+    const [dataSet,setDataSet] = useState([])
 
     // API
     // GET DATA
@@ -17,8 +17,8 @@ export default function Penilaian(){
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(import.meta.env.VITE_API_ALTERNATIF);
-                setAlternatif(response.data);
+                const response = await axios.get(import.meta.env.VITE_API_DATASET);
+                setDataSet(response.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -43,7 +43,7 @@ export default function Penilaian(){
                     </svg>
                     </div>
                     <div className="p-2">
-                        <h1 className="text-3xl font-semibold text-gray-700">Data Penilaian</h1>
+                        <h1 className="text-3xl font-semibold text-gray-700">Nilai Rapor Siswa</h1>
                     </div>
                 </div>
 
@@ -55,19 +55,19 @@ export default function Penilaian(){
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
-                            <th scope="col" className="px-6 py-3">Kode</th>
+                            <th scope="col" className="px-6 py-3">NIS</th>
                             <th scope="col" className="px-6 py-3">Nama</th>
-                            <th scope="col" className="px-6 py-3">Penilaian</th>
+                            <th scope="col" className="px-6 py-3">Input Data</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {alternatif.map((alternatif) => (
-                            <tr key={alternatif.id} className="odd:bg-white even:bg-gray-50">
-                                <td className="px-6 py-4 w-1">{alternatif.kode}</td>
-                                <td className="px-6 py-4">{alternatif.nama}</td>
+                        {dataSet.map((dataset) => (
+                            <tr key={dataset.id} className="odd:bg-white even:bg-gray-50">
+                                <td className="px-6 py-4 w-1">{dataset.nis}</td>
+                                <td className="px-6 py-4">{dataset.nama}</td>
                                 <td className="px-6 py-4 space-x-2 w-1/4">
                                     <button
-                                        onClick={() => navigate(`/penilaian/alternatif/${alternatif.id}`, {state: {nama: alternatif.nama, kode: alternatif.kode}})}
+                                        onClick={() => navigate(`/data/nilai/${dataset.id}`, {state: {nama: dataSet.nama, nis: dataSet.nis}})}
                                         className="font-medium text-blue-600 hover:underline"
                                     >
                                         Nilai Pelamar
@@ -79,7 +79,7 @@ export default function Penilaian(){
                 </table>
                 )}
                 <button
-                    onClick={() => navigate('/penilaian/review', {state: {nama: alternatif.nama, kode: alternatif.kode}})}
+                    onClick={() => navigate('/data/review', {state: {nama: dataSet.nama, nis: dataSet.nis}})}
                     className="font-medium text-blue-600 hover:underline"
                 >
                     Review Penilaian

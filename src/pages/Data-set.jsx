@@ -8,7 +8,7 @@ export default function Dataset() {
     const [isOpenTambah, setIsOpenTambah] = useState(false);
     const [isOpenUbah, setIsOpenUbah] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [alternatif,setAlternatif] = useState([])
+    const [dataSet,setDataSet] = useState([])
     const [loading, setLoading] = useState(false);
 
     //  / Toggle form/modal ubah
@@ -31,8 +31,8 @@ export default function Dataset() {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(import.meta.env.VITE_API_ALTERNATIF);
-                setAlternatif(response.data);
+                const response = await axios.get(import.meta.env.VITE_API_DATASET);
+                setDataSet(response.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -42,28 +42,26 @@ export default function Dataset() {
         fetchData();
     }, []);
 
-    // tambah alternatif
-    const [kode, setKode] = useState('');
+    // tambah dataset
+    const [nis, setNis] = useState('');
     const [nama, setNama] = useState('');
     const [kelamin, setKelamin] = useState('');
-    const [alamat, setAlamat] = useState('');
-    const [usia, setUsia] = useState('');
+    const [kelas, setKelas] = useState('');
     const [error, setError] = useState(false)
 
     const validateForm = () => {
         // Validasi: Semua state harus terisi dan valid
-        return kode.trim() && nama.trim() && kelamin && alamat.trim() && usia.trim();
+        return nis.trim() && nama.trim() && kelamin && kelas.trim();
     };
 
     const handleAdd = async (e) => {
         e.preventDefault();
         setLoading(true);
         const data = {
-            kode,
+            nis,
             nama,
             kelamin,
-            alamat,
-            usia : parseInt(usia),
+            kelas,
         };
 
         if (!validateForm()) {
@@ -73,15 +71,14 @@ export default function Dataset() {
         setError(false);
     
         try {
-            const response = await axios.post(import.meta.env.VITE_API_ADDALTERNATIF, data);
-            setKode('');
+            const response = await axios.post(import.meta.env.VITE_API_ADDDATASET, data);
+            setNis('');
             setNama('');
             setKelamin('');
-            setAlamat('');
-            setUsia('')
+            setKelas('');
             if (response.status === 200 || response.status === 201) {
                 setLoading(false);
-                window.alert('Alternatif berhasil ditambahkan.');
+                window.alert('Data berhasil ditambahkan.');
                 closeModal()
             }
             window.location.reload();
@@ -94,8 +91,7 @@ export default function Dataset() {
         return (
             selectedItem.nama?.trim() &&
             selectedItem.kelamin?.trim() &&
-            selectedItem.alamat?.trim() &&
-            String(selectedItem.usia)?.trim()
+            selectedItem.kelas?.trim()
         );
     };
     
@@ -104,17 +100,17 @@ export default function Dataset() {
             const updatedItem = { ...selectedItem };
     
             const response = await axios.put(
-                `${import.meta.env.VITE_API_UPDATEALTERNATIF}/${updatedItem.id}`,
+                `${import.meta.env.VITE_API_UPDATEDATASET}/${updatedItem.id}`,
                 updatedItem
             );
     
             if (response.status === 200 || response.status === 201) {
                 window.alert('Perubahan berhasil disimpan.');
-                const updatedAlternatif = alternatif.map((alternatif) =>
-                    alternatif.id === updatedItem.id ? updatedItem : alternatif
+                const updateData = dataSet.map((dataset) =>
+                    dataset.id === updatedItem.id ? updatedItem : dataset
                 );
                 setLoading(false);
-                setAlternatif(updatedAlternatif);
+                setDataSet(updateData);
                 closeModal(); // Menutup modal setelah sukses
             } else {
                 window.alert('Gagal menyimpan perubahan.');
@@ -126,18 +122,18 @@ export default function Dataset() {
     };
 
     // hapus alternatif
-    const handleDelete = async (alt) => {
+    const handleDelete = async (item) => {
         setLoading(true);
         try {
             // Kirim permintaan DELETE untuk item yang dipilih
-            const response = await axios.delete(`${import.meta.env.VITE_API_DELETEALTERNATIF}/${alt.id}`);
+            const response = await axios.delete(`${import.meta.env.VITE_API_DELETEDATASET}/${item.id}`);
     
             // Periksa status dari respons
             if (response.status === 200) {
                 window.alert(response.data.message);
                 // Hapus item yang dipilih dari state kriteria
-                const updatedAlternatif = alternatif.filter(k => k.id !== alt.id);
-                setAlternatif(updatedAlternatif);
+                const updateData = dataSet.filter(k => k.id !== item.id);
+                setDataSet(updateData);
                 setLoading(false);
             }
         } catch (error) {
@@ -179,17 +175,16 @@ export default function Dataset() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {alternatif.length > 0 ? (
-                                alternatif.map((alternatif) => (
-                                    <tr key={alternatif.id} className="odd:bg-white even:bg-gray-50 border-b">
-                                        <td className="px-6 py-4">{alternatif.kode}</td>
-                                        <td className="px-6 py-4">{alternatif.nama}</td>
-                                        <td className="px-6 py-4">{alternatif.kelamin}</td>
-                                        <td className="px-6 py-4">{alternatif.alamat}</td>
-                                        <td className="px-6 py-4">{alternatif.usia}</td>
+                                {dataSet.length > 0 ? (
+                                dataSet.map((dataset) => (
+                                    <tr key={dataset.id} className="odd:bg-white even:bg-gray-50 border-b">
+                                        <td className="px-6 py-4">{dataset.nis}</td>
+                                        <td className="px-6 py-4">{dataset.nama}</td>
+                                        <td className="px-6 py-4">{dataset.kelamin}</td>
+                                        <td className="px-6 py-4">{dataset.kelas}</td>
                                         <td class="px-6 py-4 space-x-2">
-                                            <button onClick={() => toggleFormUbah(alternatif)} type="button" class="font-medium text-blue-600 hover:underline">Ubah</button>
-                                            <button type="button" onClick={()=> handleDelete(alternatif)} class="font-medium text-red-600 hover:underline">Hapus</button>
+                                            <button onClick={() => toggleFormUbah(dataset)} type="button" class="font-medium text-blue-600 hover:underline">Ubah</button>
+                                            <button type="button" onClick={()=> handleDelete(dataset)} class="font-medium text-red-600 hover:underline">Hapus</button>
                                         </td>
                                     </tr>
                                 ))
@@ -208,7 +203,7 @@ export default function Dataset() {
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white rounded-lg w-full max-w-md mx-4 sm:mx-auto p-6 space-y-6 shadow-lg">
                         <div className="flex justify-between items-center">
-                            <h2 className="text-xl font-semibold text-gray-700">Simpan</h2>
+                            <h2 className="text-xl font-semibold text-gray-700">Tambah Data</h2>
                             <button
                                 className="text-gray-500 hover:text-gray-700"
                                 onClick={closeModal}
@@ -221,13 +216,13 @@ export default function Dataset() {
 
                             <div>
                                 <label className="block text-gray-700 font-medium mb-1">
-                                    Kode
+                                    NIS
                                 </label>
                                 <input
                                     type="text"
-                                    name="kode"
+                                    name="nis"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
-                                    onChange={(e) => setKode(e.target.value)}
+                                    onChange={(e) => setNis(e.target.value)}
                                     required
                                 />
                             </div>
@@ -251,7 +246,7 @@ export default function Dataset() {
                                     Kelamin
                                 </label>
                                 <select
-                                    name="telepon"
+                                    name="kelamin"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
                                     onChange={(e) => setKelamin(e.target.value)}
                                     required
@@ -264,30 +259,18 @@ export default function Dataset() {
                             
                             <div>
                                 <label className="block text-gray-700 font-medium mb-1">
-                                    Alamat
+                                    Kelas
                                 </label>
                                 <input
                                     type="text"
-                                    name="alamat"
+                                    name="kelas"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
                                     placeholder="Masukkan alamat"
-                                    onChange={(e) => setAlamat(e.target.value)}
+                                    onChange={(e) => setKelas(e.target.value)}
                                     required
                                 />
                             </div>
 
-                            <div>
-                                <label className="block text-gray-700 font-medium mb-1">
-                                    Usia
-                                </label>
-                                <input
-                                    type="number"
-                                    onChange={(e) => setUsia(e.target.value)}
-                                    className="w-full px-3 py-2 border rounded-md focus:outline-none"
-                                    placeholder="Masukkan usia"
-                                    required
-                                />
-                            </div>
 
                             <p className="text-red-500 text-sm">* Isi semua data sebelum menambah</p>
 
@@ -309,7 +292,7 @@ export default function Dataset() {
                                             : "bg-gray-300 cursor-not-allowed"
                                     }`}
                                 >
-                                    Tambah
+                                    Simpan
                                 </button>
                             </div>
                         </form>
@@ -321,7 +304,7 @@ export default function Dataset() {
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white rounded-lg w-full max-w-md mx-4 sm:mx-auto p-6 space-y-6 shadow-lg">
                         <div className="flex justify-between items-center">
-                            <h2 className="text-xl font-semibold text-gray-700">Ubah Data Pelamar</h2>
+                            <h2 className="text-xl font-semibold text-gray-700">Ubah Data</h2>
                             <button
                                 className="text-gray-500 hover:text-gray-700"
                                 onClick={closeModal}
@@ -333,13 +316,13 @@ export default function Dataset() {
                         <form className="space-y-4">
                             <div>
                                 <label className="block text-gray-700 font-medium mb-1">
-                                    Kode
+                                    NIS
                                 </label>
                                 <input
                                     type="text"
-                                    name="newKode"
+                                    name="nis"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
-                                    value={selectedItem.kode}
+                                    value={selectedItem.nis}
                                     disabled
                                 />
                             </div>
@@ -366,7 +349,7 @@ export default function Dataset() {
                                     Kelamin
                                 </label>
                                 <select
-                                    name="telepon"
+                                    name="kelamin"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
                                     value={selectedItem.kelamin}
                                     onChange={(e) =>
@@ -381,36 +364,20 @@ export default function Dataset() {
 
                             <div>
                                 <label className="block text-gray-700 font-medium mb-1">
-                                    Alamat
+                                    Kelas
                                 </label>
                                 <input
                                     type="text"
-                                    name="alamat"
+                                    name="kelas"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
                                     placeholder="Masukkan alamat"
-                                    value={selectedItem.alamat}
+                                    value={selectedItem.kelas}
                                     onChange={(e) =>
-                                        setSelectedItem({ ...selectedItem, alamat: e.target.value })
+                                        setSelectedItem({ ...selectedItem, kelas: e.target.value })
                                     }
                                     
                                 />
                             </div>
-
-                            <div>
-                                <label className="block text-gray-700 font-medium mb-1">
-                                    Usia
-                                </label>
-                                <input
-                                    type="text"
-                                    value={selectedItem.usia}
-                                    onChange={(e) =>
-                                        setSelectedItem({ ...selectedItem, usia: e.target.value })
-                                    }
-                                    className="w-full px-3 py-2 border rounded-md focus:outline-none"
-                                    placeholder="Masukan Usia"
-                                />
-                            </div>
-                            
 
                             <div className="flex justify-end space-x-4">
                                 <button

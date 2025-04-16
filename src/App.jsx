@@ -7,10 +7,9 @@ import { PersistGate } from "redux-persist/integration/react"
 import Dashboard from "./pages/Dashboard"
 import Home from "./pages/Home"
 import Signin from "./pages/SignIn"
-import Sidenav from "./components/sidenav"
+import Sidenav from "./components/Sidenav"
 import Field from "./pages/Field"
 import Dataset from "./pages/Data-set"
-import Penilaian from "./pages/Data-penilaian"
 import SubKriteria from "./pages/Data-subkriteria"
 import PenilaianAlternatif from "./pages/Penilaian"
 import UnauthorizedPage from "./pages/Unauthorized"
@@ -19,6 +18,7 @@ import PenilaianReview from "./pages/Penilaian-review"
 import PerhitunganMetode from "./pages/Perhitungan-Metode"
 import HasilPerhitungan from "./pages/Hasil-Perhitungan"
 import UserManagement from "./pages/User-management"
+import PersiapanData from "./pages/Data-persiapan"
 
 function App() {
 
@@ -57,9 +57,9 @@ function App() {
               </PrivateRoute>
             }/>
 
-            <Route path="/penilaian" element={
+            <Route path="/persiapandata" element={
               <PrivateRoute requiredRole={["Super Admin" , "Koor. Personal Trainer"]}>
-                <Penilaian />
+                <PersiapanData />
               </PrivateRoute>
             }/>
 
