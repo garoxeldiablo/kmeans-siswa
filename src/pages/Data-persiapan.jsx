@@ -57,7 +57,7 @@ export default function PersiapanData(){
                         <tr>
                             <th scope="col" className="px-6 py-3">NIS</th>
                             <th scope="col" className="px-6 py-3">Nama</th>
-                            <th scope="col" className="px-6 py-3">Input Data</th>
+                            <th scope="col" className="px-6 py-3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +70,7 @@ export default function PersiapanData(){
                                         onClick={() => navigate(`/data/nilai/${dataset.id}`, {state: {nama: dataSet.nama, nis: dataSet.nis}})}
                                         className="font-medium text-blue-600 hover:underline"
                                     >
-                                        Nilai Pelamar
+                                        Input Data Nilai
                                     </button>
                                 </td>
                             </tr>

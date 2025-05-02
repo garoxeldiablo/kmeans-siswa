@@ -5,56 +5,51 @@ import axios from "axios";
 import { RingLoader } from "react-spinners";
 
 export default function PenilaianAlternatif() {
-    const { alternatif_id } = useParams();
+    const { dataSetId } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
-    const { nama, kode } = location.state || {};
+    const { nama, nis } = location.state || {};
 
-    const [kriteria, setKriteria] = useState([]);
-    const [subKriteria, setSubKriteria] = useState([]);
+    const [field, setField] = useState([]);
     const [penilaian, setPenilaian] = useState({});
 
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const fetchAllData = async () => {
+        const fetchField = async () => {
             setLoading(true);
             try {
-                const [kriteriaRes, subKriteriaRes] = await Promise.all([
-                    axios.get(import.meta.env.VITE_API_KRITERIA),
-                    axios.get(import.meta.env.VITE_API_SUBKRITERIA),
-                ]);
-                setKriteria(kriteriaRes.data);
-                setSubKriteria(subKriteriaRes.data);
+                const fieldRes = await axios.get(import.meta.env.VITE_API_FIELD);
+                setField(fieldRes.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
-        fetchAllData();
+        fetchField();
     }, []);
 
-    const handleInputChange = (kriteriaId, value) => {
-        setPenilaian((prev) => ({ ...prev, [kriteriaId]: value}));
-    };
+    // const handleInputChange = (kriteriaId, value) => {
+    //     setPenilaian((prev) => ({ ...prev, [kriteriaId]: value}));
+    // };
 
-    const handleAdd = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        const data = Object.entries(penilaian).map(([kriteriaId, nilai]) => ({
-            alternatif_id : parseInt(alternatif_id),
-            kriteria_id: parseInt(kriteriaId),
-            nilai
-        }));
-        try {
-            await axios.post(import.meta.env.VITE_API_ADDPENILAIAN, data);
-            alert("Penilaian berhasil diperbarui.");
-            setLoading(false);
-            navigate("/penilaian");
-        } catch (error) {
-            console.error("Terjadi kesalahan:", error);
-        }
-    };
+    // const handleAdd = async (e) => {
+    //     e.preventDefault();
+    //     setLoading(true);
+    //     const data = Object.entries(penilaian).map(([kriteriaId, nilai]) => ({
+    //         alternatif_id : parseInt(alternatif_id),
+    //         kriteria_id: parseInt(kriteriaId),
+    //         nilai
+    //     }));
+    //     try {
+    //         await axios.post(import.meta.env.VITE_API_ADDPENILAIAN, data);
+    //         alert("Penilaian berhasil diperbarui.");
+    //         setLoading(false);
+    //         navigate("/penilaian");
+    //     } catch (error) {
+    //         console.error("Terjadi kesalahan:", error);
+    //     }
+    // };
     
     return (
         <>
@@ -75,14 +70,13 @@ export default function PenilaianAlternatif() {
                     Penilaian Kandidat: {nama || "Tidak Diketahui"}
                 </h1>
                 <p className="text-gray-500">Kode Alternatif: {kode}</p>
-                {kriteria.length > 0 ? (  
+                {field.length > 0 ? (  
                     <form onSubmit={handleAdd} className="space-y-4">
-                    {kriteria.map((k) => (
+                    {field.map((k) => (
                         <div key={k.id}>
                             <label className="block text-gray-700 font-medium mb-1">
-                                {k.kriteria}
+                                {k.field}
                             </label>
-                            {k.tipe === "Kuantitatif" ? (
                                 <input
                                     type="number"
                                     value={penilaian[k.id] || ""}
@@ -90,25 +84,6 @@ export default function PenilaianAlternatif() {
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
                                     required
                                 />
-                            ) : (
-                                <select
-                                    value={penilaian[k.id] || ""}
-                                    onChange={(e) => handleInputChange(k.id, e.target.value)}
-                                    className="w-full px-3 py-2 border rounded-md focus:outline-none"
-                                    required
-                                >
-                                    <option value="" disabled>
-                                        Pilih nilai untuk {k.kriteria}
-                                    </option>
-                                    {subKriteria
-                                        .filter((sk) => sk.kriteria_id === k.id)
-                                        .map((sk) => (
-                                            <option key={sk.id} value={sk.bobot}>
-                                                {sk.subkriteria}
-                                            </option>
-                                        ))}
-                                </select>
-                            )}
                         </div>
                     ))}
                     <div className="flex justify-end space-x-4">
