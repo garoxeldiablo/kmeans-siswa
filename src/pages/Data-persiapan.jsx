@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RingLoader } from "react-spinners";
+import { data } from "autoprefixer";
 
 export default function PersiapanData(){
 
@@ -67,7 +68,7 @@ export default function PersiapanData(){
                                 <td className="px-6 py-4">{dataset.nama}</td>
                                 <td className="px-6 py-4 space-x-2 w-1/4">
                                     <button
-                                        onClick={() => navigate(`/data/nilai/${dataset.id}`, {state: {nama: dataSet.nama, nis: dataSet.nis}})}
+                                        onClick={() => navigate(`/persiapandata/input/${dataset.id}`, {state: {nama: dataset.nama, nis: dataset.nis}})}
                                         className="font-medium text-blue-600 hover:underline"
                                     >
                                         Input Data Nilai
@@ -79,7 +80,7 @@ export default function PersiapanData(){
                 </table>
                 )}
                 <button
-                    onClick={() => navigate('/data/review', {state: {nama: dataSet.nama, nis: dataSet.nis}})}
+                    onClick={() => navigate('/persiapandata/review', {state: {nama: dataSet.nama, nis: dataSet.nis}})}
                     className="font-medium text-blue-600 hover:underline"
                 >
                     Review Penilaian

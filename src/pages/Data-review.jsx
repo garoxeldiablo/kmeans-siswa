@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RingLoader } from "react-spinners";
 
-export default function PenilaianReview(){
+export default function Datareview(){
 
     const navigate = useNavigate()
 
-    const [kriteria, setKriteria] = useState([])
-    const [alternatif, setAlternatif] = useState([])
+    const [field, setField] = useState([])
+    const [dataset, setDataset] = useState([])
 
     const [loading, setLoading] = useState(false)
 
@@ -20,32 +20,30 @@ export default function PenilaianReview(){
         const fetchAllData = async () => {
             setLoading(true);
             try {
-                const [kriteriaRes, alternatifRes, subKriteriares, penilaianRes] = await Promise.all([
-                    axios.get(import.meta.env.VITE_API_KRITERIA),
-                    axios.get(import.meta.env.VITE_API_ALTERNATIF),
-                    axios.get(import.meta.env.VITE_API_SUBKRITERIA),
-                    axios.get(import.meta.env.VITE_API_PENILAIANAWAL),
+                const [fieldRes, datasetRes, dataNilaiRes] = await Promise.all([
+                    axios.get(import.meta.env.VITE_API_FIELD),
+                    axios.get(import.meta.env.VITE_API_DATASET),
+                    axios.get(import.meta.env.VITE_API_DATANILAI),
                 ]);
     
-                const kriteria = kriteriaRes.data;
-                const alternatif = alternatifRes.data;
-                const subKriteria = subKriteriares.data;
-                const penilaian = penilaianRes.data;
+                const dataField = fieldRes.data;
+                const dataDataset = datasetRes.data;
+                const dataNilai = dataNilaiRes.data;
     
                 // Gabungkan penilaian ke alternatif
-                const alternatifWithPenilaian = alternatif.map((item) => {
-                    const nilai = kriteria.map((k) => {
+                const datasetWithNilai = dataDataset.map((item) => {
+                    const nilai = dataField.map((k) => {
                         // Cari nilai berdasarkan alternatif_id dan kriteria_id
-                        const matchedPenilaian = penilaian.find(
-                            (p) => p.alternatif_id === item.id && p.kriteria_id === k.id
+                        const matchedNilai = dataNilai.find(
+                            (p) => p.dataset_id === item.id && p.field_id === k.id
                         );
-                        return matchedPenilaian ? matchedPenilaian.nilai : '-';
+                        return matchedNilai ? matchedNilai.nilai : '-';
                     });
                     return { ...item, nilai }; // Tambahkan nilai ke setiap alternatif
                 });
     
-                setKriteria(kriteria);
-                setAlternatif(alternatifWithPenilaian);
+                setField(dataField);
+                setDataset(datasetWithNilai);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -59,17 +57,17 @@ export default function PenilaianReview(){
         setLoading(true);
         try {
             // Kirim permintaan DELETE untuk item yang dipilih
-            const response = await axios.delete(import.meta.env.VITE_API_RESETPENILAIAN);
+            const response = await axios.delete(import.meta.env.VITE_API_RESETDATANILAI);
     
             // Periksa status dari respons
             if (response.status === 200) {
                 window.alert(response.data.message);
                 setLoading(false);
-                navigate('/penilaian')
+                navigate('/persiapandata')
             }
 
         } catch (error) {
-            alert('Kriteria memiliki subkritera, silahkan hapus subkriteria terlebih dahulu')
+            alert('terjadi kesalahan')
         } finally {
             setLoading(false);
         }
@@ -89,7 +87,7 @@ export default function PenilaianReview(){
                         </svg>
                     </div>
                     <div className="p-2">
-                        <h1 className="text-3xl font-semibold text-gray-700">Data Penilaian</h1>
+                        <h1 className="text-3xl font-semibold text-gray-700">Data Nilai Siswa</h1>
                     </div>
                     </div>
 
@@ -102,11 +100,11 @@ export default function PenilaianReview(){
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
-                                    <th scope="col" className="px-6 py-3">Kode</th>
+                                    <th scope="col" className="px-6 py-3">NIS</th>
                                     <th scope="col" className="px-6 py-3">Nama</th>
-                                    {kriteria.length > 0 ? (
-                                        kriteria.map((item) => (
-                                            <th key={item.id} scope="col" className="px-6 py-3">{item.kriteria}</th>
+                                    {field.length > 0 ? (
+                                        field.map((item) => (
+                                            <th key={item.id} scope="col" className="px-6 py-3">{item.field}</th>
                                         ))
                                     ) : (
                                         <th colSpan="6" className="text-center py-4">Tidak ada data</th>
@@ -114,10 +112,10 @@ export default function PenilaianReview(){
                                 </tr>
                             </thead>
                             <tbody>
-                            {alternatif.length > 0 ? (
-                                alternatif.map((item) => (
+                            {dataset.length > 0 ? (
+                                dataset.map((item) => (
                                     <tr key={item.id} className="odd:bg-white even:bg-gray-50 border-b">
-                                        <td className="px-6 py-4">{item.kode}</td>
+                                        <td className="px-6 py-4">{item.nis}</td>
                                         <td className="px-6 py-4">{item.nama}</td>
                                         {item.nilai.map((n, index) => (
                                             <td key={index} className="px-6 py-4">
@@ -128,7 +126,7 @@ export default function PenilaianReview(){
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={kriteria.length + 2} className="px-6 py-4 text-center">
+                                    <td colSpan={field.length + 2} className="px-6 py-4 text-center">
                                         Tidak ada data.
                                     </td>
                                 </tr>
@@ -139,7 +137,7 @@ export default function PenilaianReview(){
 
                         <div className="flex space-x-2 justify-end m-2">
                             <button
-                                onClick={() => navigate("/penilaian")}
+                                onClick={() => navigate("/persiapandata")}
                                 className="bg-gray-800 text-white text-sm p-2 rounded transition hover:bg-gray-700"
                             >
                                 kembali

@@ -10,15 +10,14 @@ import Signin from "./pages/SignIn"
 import Sidenav from "./components/Sidenav"
 import Field from "./pages/Field"
 import Dataset from "./pages/Data-set"
+import PersiapanData from "./pages/Data-persiapan"
+import InputData from "./pages/Input-Data"
+import Datareview from "./pages/Data-review"
 import SubKriteria from "./pages/Data-subkriteria"
-import PenilaianAlternatif from "./pages/Penilaian"
-import UnauthorizedPage from "./pages/Unauthorized"
 import Perhitungan from "./pages/Perhitungan"
-import PenilaianReview from "./pages/Penilaian-review"
 import PerhitunganMetode from "./pages/Perhitungan-Metode"
 import HasilPerhitungan from "./pages/Hasil-Perhitungan"
 import UserManagement from "./pages/User-management"
-import PersiapanData from "./pages/Data-persiapan"
 
 function App() {
 
@@ -30,7 +29,7 @@ function App() {
           <Sidenav/>
           <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path="/unauthorized" element={<UnauthorizedPage/>} />
+            {/* <Route path="/unauthorized" element={<UnauthorizedPage/>} /> */}
             <Route path="/signin" element={<Signin/>}/>
 
             <Route path="/dashboard" element={
@@ -45,35 +44,37 @@ function App() {
               </PrivateRoute>
             }/>
 
-            <Route path="/subkriteria" element={
+            {/* <Route path="/subkriteria" element={
               <PrivateRoute requiredRole={["Super Admin", "Manajer"]}>
                 <SubKriteria />
               </PrivateRoute>
-            }/>
+            }/> */}
 
             <Route path="/dataset" element={
-              <PrivateRoute requiredRole={["Super Admin" , "Koor. Personal Trainer", "Manajer"]}>
+              <PrivateRoute requiredRole={["Super Admin" , "Manajer"]}>
                 <Dataset />
               </PrivateRoute>
             }/>
 
             <Route path="/persiapandata" element={
-              <PrivateRoute requiredRole={["Super Admin" , "Koor. Personal Trainer"]}>
+              <PrivateRoute requiredRole={["Super Admin"]}>
                 <PersiapanData />
               </PrivateRoute>
             }/>
 
-            <Route path="/penilaian/review" element={
+            <Route path="/persiapandata/input/:dataset_id" element={
               <PrivateRoute requiredRole={["Super Admin" , "Koor. Personal Trainer"]}>
-                <PenilaianReview />
+                <InputData />
               </PrivateRoute>
             }/>
 
-            <Route path="/penilaian/alternatif/:alternatif_id" element={
+            <Route path="/persiapandata/review" element={
               <PrivateRoute requiredRole={["Super Admin" , "Koor. Personal Trainer"]}>
-                <PenilaianAlternatif />
+                <Datareview />
               </PrivateRoute>
             }/>
+
+            {/* 
 
             <Route path="/perhitungan" element={
               <PrivateRoute requiredRole={["Super Admin" , "Koor. Personal Trainer"]}>
@@ -97,7 +98,8 @@ function App() {
               <PrivateRoute requiredRole="Super Admin">
                 <UserManagement />
               </PrivateRoute>
-            }/>
+            }/> 
+            */}
           </Routes>
         </Router>
       </PersistGate>

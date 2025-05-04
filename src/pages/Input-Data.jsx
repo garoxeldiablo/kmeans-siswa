@@ -4,16 +4,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { RingLoader } from "react-spinners";
 
-export default function PenilaianAlternatif() {
-    const { dataSetId } = useParams();
+export default function InputData() {
+    const { dataset_id } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
     const { nama, nis } = location.state || {};
 
     const [field, setField] = useState([]);
-    const [penilaian, setPenilaian] = useState({});
+    const [inputNilai, setInputNilai] = useState({});
 
     const [loading, setLoading] = useState(false);
+
+    console.log(dataset_id)
 
     useEffect(() => {
         const fetchField = async () => {
@@ -29,27 +31,27 @@ export default function PenilaianAlternatif() {
         fetchField();
     }, []);
 
-    // const handleInputChange = (kriteriaId, value) => {
-    //     setPenilaian((prev) => ({ ...prev, [kriteriaId]: value}));
-    // };
+    const handleInputChange = (field_id, value) => {
+        setInputNilai((prev) => ({ ...prev, [field_id]: value}));
+    };
 
-    // const handleAdd = async (e) => {
-    //     e.preventDefault();
-    //     setLoading(true);
-    //     const data = Object.entries(penilaian).map(([kriteriaId, nilai]) => ({
-    //         alternatif_id : parseInt(alternatif_id),
-    //         kriteria_id: parseInt(kriteriaId),
-    //         nilai
-    //     }));
-    //     try {
-    //         await axios.post(import.meta.env.VITE_API_ADDPENILAIAN, data);
-    //         alert("Penilaian berhasil diperbarui.");
-    //         setLoading(false);
-    //         navigate("/penilaian");
-    //     } catch (error) {
-    //         console.error("Terjadi kesalahan:", error);
-    //     }
-    // };
+    const handleAdd = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const data = Object.entries(inputNilai).map(([field_id, nilai]) => ({
+            dataset_id : parseInt(dataset_id),
+            field_id : parseInt(field_id),
+            nilai
+        }));
+        try {
+            await axios.post(import.meta.env.VITE_API_INPUTNILAI, data);
+            alert("Data berhasil diperbarui.");
+            setLoading(false);
+            navigate("/persiapandata");
+        } catch (error) {
+            console.error("Terjadi kesalahan:", error);
+        }
+    };
     
     return (
         <>
@@ -69,7 +71,7 @@ export default function PenilaianAlternatif() {
                 <h1 className="text-xl font-semibold text-gray-700">
                     Penilaian Kandidat: {nama || "Tidak Diketahui"}
                 </h1>
-                <p className="text-gray-500">Kode Alternatif: {kode}</p>
+                <p className="text-gray-500">Kode Alternatif: {nis}</p>
                 {field.length > 0 ? (  
                     <form onSubmit={handleAdd} className="space-y-4">
                     {field.map((k) => (
@@ -79,7 +81,7 @@ export default function PenilaianAlternatif() {
                             </label>
                                 <input
                                     type="number"
-                                    value={penilaian[k.id] || ""}
+                                    value={inputNilai[k.id] || ""}
                                     onChange={(e) => handleInputChange(k.id, e.target.value)}
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
                                     required
@@ -90,7 +92,7 @@ export default function PenilaianAlternatif() {
                         <button
                             type="button"
                             className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
-                            onClick={() => navigate("/penilaian")}
+                            onClick={() => navigate("/persiapandata")}
                         >
                             Batal
                         </button>
