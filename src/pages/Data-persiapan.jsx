@@ -34,8 +34,6 @@ export default function PersiapanData(){
         <div class="p-4 sm:ml-64">
             <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
                 
-                <Infouser/>
-
                 <div class="flex items-center mb-4 rounded bg-gray-50 p-4">
                     <div className="p-2">
                     <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 100" id="Websitelike">

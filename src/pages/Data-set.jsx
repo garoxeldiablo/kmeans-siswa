@@ -167,6 +167,7 @@ export default function Dataset() {
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
+                                    <th scope="col" className="px-6 py-3">NO</th>
                                     <th scope="col" className="px-6 py-3">NIS</th>
                                     <th scope="col" className="px-6 py-3">Nama</th>
                                     <th scope="col" className="px-6 py-3">Kelamin</th>
@@ -176,8 +177,9 @@ export default function Dataset() {
                             </thead>
                             <tbody>
                                 {dataSet.length > 0 ? (
-                                dataSet.map((dataset) => (
+                                dataSet.map((dataset, index) => (
                                     <tr key={dataset.id} className="odd:bg-white even:bg-gray-50 border-b">
+                                        <td className="px-6 py-4">{index + 1}</td>
                                         <td className="px-6 py-4">{dataset.nis}</td>
                                         <td className="px-6 py-4">{dataset.nama}</td>
                                         <td className="px-6 py-4">{dataset.kelamin}</td>
@@ -323,7 +325,9 @@ export default function Dataset() {
                                     name="nis"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
                                     value={selectedItem.nis}
-                                    disabled
+                                    onChange={(e) =>
+                                        setSelectedItem({ ...selectedItem, nis: e.target.value })
+                                    }
                                 />
                             </div>
 
@@ -370,7 +374,7 @@ export default function Dataset() {
                                     type="text"
                                     name="kelas"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
-                                    placeholder="Masukkan alamat"
+                                    placeholder="Masukkan kelas"
                                     value={selectedItem.kelas}
                                     onChange={(e) =>
                                         setSelectedItem({ ...selectedItem, kelas: e.target.value })

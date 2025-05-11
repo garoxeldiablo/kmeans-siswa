@@ -7,6 +7,7 @@ export default function Dashboard(){
 
     const [dataset, setDataset] = useState("");
     const [field, setField] = useState("");
+    const [dataNilai, setDataNilai] = useState("");
 
     const [loading, setLoading] = useState(false)
 
@@ -15,14 +16,16 @@ export default function Dashboard(){
         const fetchData = async () => {
             setLoading(true);
             try {
-                const [fieldRes, datasetRes] = await Promise.all([
+                const [fieldRes, datasetRes, dataNilaiRes] = await Promise.all([
                     axios.get(import.meta.env.VITE_API_FIELD),
                     axios.get(import.meta.env.VITE_API_DATASET),
+                    axios.get(import.meta.env.VITE_API_DATANILAI),
                 ]);
 
                 // Update state dengan jumlah data
                 setField(fieldRes.data.length);
                 setDataset(datasetRes.data.length);
+                setDataNilai(dataNilaiRes.data.length);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -50,11 +53,11 @@ export default function Dashboard(){
 
             <div class="space-y-4 mb-4">
 
-                <div class="relative flex items-center justify-between rounded bg-[url('https://easygym.co.uk/wp-content/uploads/2021/11/PT-mobile.jpg')] bg-cover bg-center p-4">
+                <div class="relative flex items-center justify-between rounded bg-[url('https://images.deccanherald.com/deccanherald%2Fimport%2Fsites%2Fdh%2Ffiles%2Farticleimages%2F2021%2F08%2F31%2Fbooks-istock-1023499-1629912600-1025292-1630356943.jpg?auto=format%2Ccompress&fmt=webp&fit=max&format=webp&q=70&w=400&dpr=2')] bg-cover bg-center p-4">
                     <div class="absolute inset-0 bg-gradient-to-r from-black/100 to-black/30 rounded"></div>
                         <div class="relative z-10">
                         <p class="text-lg text-gray-200">
-                            Field
+                            Mata Pelajaran
                         </p>
                         {loading ? (
                             <div class="flex itemsc-center justify-center">
@@ -83,7 +86,7 @@ export default function Dashboard(){
                     </div>
                 </div> */}
 
-                <div class="relative flex items-center justify-between rounded bg-[url('https://cdn.prod.website-files.com/60359921321f8d62cd691da7/6357daec39b0080e29438f7f_FitnessChallengeIdeasforYourGym_e84e1e59c519ae19ef541c822ddd08be_2000.jpeg')] bg-cover p-4">
+                <div class="relative flex items-center justify-between rounded bg-[url('https://awsimages.detik.net.id/community/media/visual/2024/07/08/semangat-siswa-sd-masuk-sekolah-hari-pertama_169.jpeg?w=1200')] bg-center p-4">
                     <div class="absolute inset-0 bg-gradient-to-r from-black/100 to-black/30 rounded"></div>
                         <div class="relative z-10">
                         <p class="text-lg text-gray-200">
@@ -99,18 +102,18 @@ export default function Dashboard(){
                     </div>
                 </div>
 
-                <div class="relative flex items-center justify-between rounded bg-[url('https://www.sportaberdeen.co.uk/wp-content/uploads/2020/02/les-mills-class-scaled-1370x640.jpg')] bg-cover bg-center p-4">
+                <div class="relative flex items-center justify-between rounded bg-[url('https://www.unsulbarnews.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-16-at-22.31.45.jpeg')] bg-cover bg-center p-4">
                     <div class="absolute inset-0 bg-gradient-to-r from-black/100 to-black/30 rounded"></div>
                         <div class="relative z-10">
                         <p class="text-lg text-gray-200">
-                            Jumlah Input
+                            Data Nilai
                         </p>
                         {loading ? (
                             <div class="flex itemsc-center justify-center">
                                 <RingLoader/>
                             </div>
                         ):(
-                            <h1 class="text-4xl font-bold text-white">null</h1>
+                            <h1 class="text-4xl font-bold text-white">{dataNilai}</h1>
                         )}
                     </div>
                 </div>
