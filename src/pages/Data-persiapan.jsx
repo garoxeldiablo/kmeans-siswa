@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RingLoader } from "react-spinners";
-import { data } from "autoprefixer";
 
 export default function PersiapanData(){
 
     const navigate = useNavigate()
 
     const [loading, setLoading] = useState(false)
-    const [dataSet,setDataSet] = useState([])
+    const [siswa,setSiswa] = useState([])
 
     // API
     // GET DATA
@@ -19,7 +18,7 @@ export default function PersiapanData(){
             setLoading(true);
             try {
                 const response = await axios.get(import.meta.env.VITE_API_DATASET);
-                setDataSet(response.data);
+                setSiswa(response.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -60,13 +59,13 @@ export default function PersiapanData(){
                         </tr>
                     </thead>
                     <tbody>
-                        {dataSet.map((dataset) => (
-                            <tr key={dataset.id} className="odd:bg-white even:bg-gray-50">
-                                <td className="px-6 py-4 w-1">{dataset.nis}</td>
-                                <td className="px-6 py-4">{dataset.nama}</td>
+                        {siswa.map((item) => (
+                            <tr key={item.id} className="odd:bg-white even:bg-gray-50">
+                                <td className="px-6 py-4 w-1">{item.nis}</td>
+                                <td className="px-6 py-4">{item.nama}</td>
                                 <td className="px-6 py-4 space-x-2 w-1/4">
                                     <button
-                                        onClick={() => navigate(`/persiapandata/input/${dataset.id}`, {state: {nama: dataset.nama, nis: dataset.nis}})}
+                                        onClick={() => navigate(`/persiapandata/input/${item.id}`, {state: {nama: item.nama, nis: item.nis}})}
                                         className="font-medium text-blue-600 hover:underline"
                                     >
                                         Input Data Nilai
@@ -78,7 +77,7 @@ export default function PersiapanData(){
                 </table>
                 )}
                 <button
-                    onClick={() => navigate('/persiapandata/review', {state: {nama: dataSet.nama, nis: dataSet.nis}})}
+                    onClick={() => navigate('/persiapandata/review')}
                     className="font-medium text-blue-600 hover:underline"
                 >
                     Review Penilaian

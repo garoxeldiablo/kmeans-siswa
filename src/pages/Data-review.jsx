@@ -8,7 +8,7 @@ export default function Datareview(){
 
     const navigate = useNavigate()
 
-    const [field, setField] = useState([])
+    const [mapel, setMapel] = useState([])
     const [dataset, setDataset] = useState([])
 
     const [loading, setLoading] = useState(false)
@@ -20,29 +20,29 @@ export default function Datareview(){
         const fetchAllData = async () => {
             setLoading(true);
             try {
-                const [fieldRes, datasetRes, dataNilaiRes] = await Promise.all([
+                const [mapelRes, datasetRes, dataNilaiRes] = await Promise.all([
                     axios.get(import.meta.env.VITE_API_FIELD),
                     axios.get(import.meta.env.VITE_API_DATASET),
                     axios.get(import.meta.env.VITE_API_DATANILAI),
                 ]);
-    
-                const dataField = fieldRes.data;
+
+                const dataMapel = mapelRes.data;
                 const dataDataset = datasetRes.data;
                 const dataNilai = dataNilaiRes.data;
     
                 // Gabungkan penilaian ke alternatif
                 const datasetWithNilai = dataDataset.map((item) => {
-                    const nilai = dataField.map((k) => {
+                    const nilai = dataMapel.map((k) => {
                         // Cari nilai berdasarkan alternatif_id dan kriteria_id
                         const matchedNilai = dataNilai.find(
-                            (p) => p.dataset_id === item.id && p.field_id === k.id
+                            (p) => p.siswa_id === item.id && p.mapel_id === k.id
                         );
                         return matchedNilai ? matchedNilai.nilai : '-';
                     });
                     return { ...item, nilai }; // Tambahkan nilai ke setiap alternatif
                 });
-    
-                setField(dataField);
+
+                setMapel(dataMapel);
                 setDataset(datasetWithNilai);
                 setLoading(false);
             } catch (error) {
@@ -77,8 +77,6 @@ export default function Datareview(){
         <>
             <div className="p-4 sm:ml-64">
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg">
-                    <Infouser />
-
                     <div className="flex items-center mb-4 rounded bg-gray-50 p-4">
                     <div className="p-2">
                         <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 100" id="Websitelike">
@@ -100,11 +98,12 @@ export default function Datareview(){
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
+                                    <th scope="col" className="px-6 py-3">No</th>
                                     <th scope="col" className="px-6 py-3">NIS</th>
                                     <th scope="col" className="px-6 py-3">Nama</th>
-                                    {field.length > 0 ? (
-                                        field.map((item) => (
-                                            <th key={item.id} scope="col" className="px-6 py-3">{item.field}</th>
+                                    {mapel.length > 0 ? (
+                                        mapel.map((item) => (
+                                            <th key={item.id} scope="col" className="px-6 py-3">{item.mapel}</th>
                                         ))
                                     ) : (
                                         <th colSpan="6" className="text-center py-4">Tidak ada data</th>
@@ -113,8 +112,9 @@ export default function Datareview(){
                             </thead>
                             <tbody>
                             {dataset.length > 0 ? (
-                                dataset.map((item) => (
+                                dataset.map((item, index) => (
                                     <tr key={item.id} className="odd:bg-white even:bg-gray-50 border-b">
+                                        <td className="px-6 py-4">{index + 1}</td>
                                         <td className="px-6 py-4">{item.nis}</td>
                                         <td className="px-6 py-4">{item.nama}</td>
                                         {item.nilai.map((n, index) => (
@@ -126,7 +126,7 @@ export default function Datareview(){
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={field.length + 2} className="px-6 py-4 text-center">
+                                    <td colSpan={mapel.length + 2} className="px-6 py-4 text-center">
                                         Tidak ada data.
                                     </td>
                                 </tr>

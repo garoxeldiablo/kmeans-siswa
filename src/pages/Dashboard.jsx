@@ -1,4 +1,3 @@
-import Infouser from "../components/info-user";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { RingLoader } from "react-spinners";

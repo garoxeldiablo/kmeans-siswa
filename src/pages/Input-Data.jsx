@@ -1,28 +1,27 @@
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import Infouser from "../components/info-user";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { RingLoader } from "react-spinners";
 
 export default function InputData() {
-    const { dataset_id } = useParams();
+    const { siswa_id } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
     const { nama, nis } = location.state || {};
 
-    const [field, setField] = useState([]);
+    console.log("Siswa ID:", siswa_id);
+
+    const [mapel, setMapel] = useState([]);
     const [inputNilai, setInputNilai] = useState({});
 
     const [loading, setLoading] = useState(false);
-
-    console.log(dataset_id)
 
     useEffect(() => {
         const fetchField = async () => {
             setLoading(true);
             try {
                 const fieldRes = await axios.get(import.meta.env.VITE_API_FIELD);
-                setField(fieldRes.data);
+                setMapel(fieldRes.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -31,16 +30,16 @@ export default function InputData() {
         fetchField();
     }, []);
 
-    const handleInputChange = (field_id, value) => {
-        setInputNilai((prev) => ({ ...prev, [field_id]: value}));
+    const handleInputChange = (mapel_id, value) => {
+        setInputNilai((prev) => ({ ...prev, [mapel_id]: value}));
     };
 
     const handleAdd = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const data = Object.entries(inputNilai).map(([field_id, nilai]) => ({
-            dataset_id : parseInt(dataset_id),
-            field_id : parseInt(field_id),
+        const data = Object.entries(inputNilai).map(([mapel_id, nilai]) => ({
+            siswa_id : parseInt(siswa_id),
+            mapel_id : parseInt(mapel_id),
             nilai
         }));
         try {
@@ -62,22 +61,21 @@ export default function InputData() {
         ) : (
         <div className="p-4 sm:ml-64">
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg">
-                <Infouser />
                 <div className="mb-4 p-4 bg-gray-50 rounded">
                     <p className="text-gray-700">
-                    Mohon beri penilaian alternatif secara objektif dan jujur.
+                    Mohon beri penilaian secara objektif dan jujur.
                     </p>
                 </div>
                 <h1 className="text-xl font-semibold text-gray-700">
-                    Penilaian Kandidat: {nama || "Tidak Diketahui"}
+                    Input Nilai Siswa: {nama || "Tidak Diketahui"}
                 </h1>
-                <p className="text-gray-500">Kode Alternatif: {nis}</p>
-                {field.length > 0 ? (  
+                <p className="text-gray-500">NIS : {nis}</p>
+                {mapel.length > 0 ? (  
                     <form onSubmit={handleAdd} className="space-y-4">
-                    {field.map((k) => (
+                    {mapel.map((k) => (
                         <div key={k.id}>
                             <label className="block text-gray-700 font-medium mb-1">
-                                {k.field}
+                                {k.mapel}
                             </label>
                                 <input
                                     type="number"
