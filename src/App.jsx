@@ -14,9 +14,8 @@ import PersiapanData from "./pages/Data-persiapan"
 import InputData from "./pages/Input-Data"
 import Datareview from "./pages/Data-review"
 import Perhitungan from "./pages/Perhitungan"
-import PerhitunganMetode from "./pages/Perhitungan-Metode"
-import HasilPerhitungan from "./pages/Hasil-Perhitungan"
 import UserManagement from "./pages/User-management"
+import Clustering from "./pages/Perhitungan-metode"
 
 function App() {
 
@@ -75,15 +74,7 @@ function App() {
 
             <Route path="/perhitungan/kmeans" element={
               <PrivateRoute requiredRole={["Super Admin" , "Staff TU"]}>
-                <PerhitunganMetode />
-              </PrivateRoute>
-            }/>
-
-            {/* 
-
-            <Route path="/perhitungan/metode/hasil" element={
-              <PrivateRoute requiredRole={["Super Admin" , "Koor. Personal Trainer"]}>
-                <HasilPerhitungan />
+                <Clustering />
               </PrivateRoute>
             }/>
 
@@ -92,7 +83,7 @@ function App() {
                 <UserManagement />
               </PrivateRoute>
             }/> 
-            */}
+           
           </Routes>
         </Router>
       </PersistGate>

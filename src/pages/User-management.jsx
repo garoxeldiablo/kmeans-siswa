@@ -94,7 +94,6 @@ export default function UserManagement() {
         <>
             <div className="p-4 sm:ml-64">
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg">
-                    <Infouser />
 
                     <div className="flex items-center mb-4 rounded bg-gray-50 p-4">
                         <div className="p-2">
@@ -180,17 +179,17 @@ export default function UserManagement() {
 
                             <div>
                                 <label className="block text-gray-700 font-medium mb-1">
-                                    Jabatan
+                                    Status
                                 </label>
                                 <select
-                                    name="jabatan"
+                                    name="status"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none"
                                     onChange={(e) => setJabatan(e.target.value)}
                                 >
                                     <option disabled selected value> -- select an option -- </option>
                                     <option value="Super Admin">Super Admin</option>
-                                    <option value="Manajer">Manajer</option>
-                                    <option value="Koor. Personal Trainer">Koor. Personal Trainer</option>
+                                    <option value="Staff TU">Staff TU</option>
+                                    <option value="Guru">Guru</option>
                                 </select>
                             </div>
 
