@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { login } from "../utility/reducers";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import axios from "axios";
 import { ClockLoader } from "react-spinners";
 
 import image from "../assets/gmb1.jpg";
+import logo from "../assets/logo.png";
 
 export default function Signin(){
 
@@ -60,11 +61,11 @@ export default function Signin(){
             </div> ) : (
             <div className="w-full h-screen bg-cover bg-center" style={{ backgroundImage: `linear-gradient(to top right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 40%), url(${image})`}}>
              <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-             <div className='w-full max-w-md mx-auto bg-gray-300/50 backdrop-blur-sm p-6 rounded-lg flex flex-col space-y-2'>
+             <div className='w-full max-w-md mx-auto bg-gray-300/70 backdrop-blur-sm p-6 rounded-lg flex flex-col space-y-2'>
                  <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                  <img
                  alt="Your Company"
-                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+                 src={logo}
                  className="mx-auto h-10 w-auto"
                  />
                  <h2 className="mt-6 text-center text-4xl font-bold tracking-tight text-gray-900">
@@ -116,18 +117,15 @@ export default function Signin(){
                      <div>
                          <button
                          onClick={handleLogin} type="button"
-                         className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                         className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transform ease-in-out duration-300"
                          >
                          Login
                          </button>
                      </div>
                      </form>
          
-                     <p className="mt-10 text-center text-sm text-gray-900">
-                     Not a member?{' '}
-                     <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                         Start a 14 day free trial
-                     </a>
+                     <p className="mt-10 text-center text-gray-800">
+                      Hubungi <strong>Super Admin</strong> jika anda lupa password atau user baru.
                      </p>
                  </div>
              </div>

@@ -64,7 +64,7 @@ export default function Perhitungan(){
         <>
             <div className="p-4 sm:ml-64">
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg">
-                    <div className="flex items-center mb-4 rounded bg-gray-50 p-4">
+                    <div className="flex items-center mb-4 rounded bg-blue-600 p-4">
                     <div className="p-2">
                         <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 100" id="Websitelike">
                             <path d="M92.6 60H74.4l1.6-2c6-8 4-16 4.4-19.2 0-3-2.4-5.4-5.2-5.4-2.2 0-4 1.4-4.8 3.2-1.8 3.4-3.4 13.6-14 18.8L55 56c.2 1 0-1.2 0 37.4 0 .2 0 .2 0 .2 6.4 1.6 10 2.8 16 2.8h14.6c2.4 0 4.4-2 4.4-4.6s-2-4.6-4.4-4.6H88c2.4 0 4.4-2 4.4-4.6S90.4 78 88 78h2.4c2.4 0 4.4-2 4.4-4.6s-2-4.6-4.4-4.6h2c2.4 0 4.4-2 4.4-4.6C97 62 95 60 92.6 60zM47.2 97.4c2.2 0 4-1.8 4-4V57c0-2.2-1.8-4-4-4h-9.4c-3.2 0-6 2.6-6 6v32.4c0 3.4 2.8 6 6 6H47.2z" fill="#757575" class="color000000 svgShape"></path>
@@ -72,8 +72,8 @@ export default function Perhitungan(){
                         </svg>
                     </div>
                     <div className="p-2">
-                        <h1 className="text-3xl font-semibold text-gray-700">Data Nilai Siswa</h1>
-                        <h3 className="text-gray-600">Pastikan input data terisi keseluruhan dan sesuai.</h3>
+                        <h1 className="text-3xl font-semibold text-white">Data Nilai Siswa</h1>
+                        <h3 className="text-white">Pastikan input data terisi keseluruhan dan sesuai.</h3>
                     </div>
                     </div>
 

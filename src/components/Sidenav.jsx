@@ -1,6 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import logocg from "/src/assets/Logo Atas.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../utility/reducers";
 import Infouser from "./info-user";
@@ -214,6 +213,9 @@ export default function Sidenav() {
               </button>
             </li>
           </ul>
+          <div className="mt-10 p-2">
+            <p className="text-white text-sm">© 2025 Adinda Az Zahra.</p>
+          </div>
         </div>
       </aside>
     </>

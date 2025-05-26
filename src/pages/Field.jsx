@@ -140,8 +140,8 @@ export default function Field() {
                         </div>
                         <div className="p-2">
                             <h1 className="text-3xl font-semibold text-white">Mata Pelajaran</h1>
-                            <h3 className="text-gray-50">Field adalah kolom dalam sebuah tabel yang menyimpan informasi spesifik tentang suatu entitas. Setiap field merepresentasikan atribut dari suatu data. misal dalam mata pelajaran : IPA, IPS, MM, dst.</h3>
-                            <button className="bg-gray-800 text-white text-sm p-2 mt-2 rounded hover:bg-gray-700 transition" onClick={toggleFormTambah}>Tambah Mapel</button>
+                            <h3 className="text-gray-50">Pembelajaran yang berisi topik atau bidang studi seperti MM, B. Indo, dll. Setiap mapel bertujuan untuk mengembangkan pengetahuan, keterampilan, dan sikap siswa sesuai dengan kompetensi yang telah ditetapkan dalam kurikulum.</h3>
+                            <button className="bg-gray-800 text-white text-sm p-2 mt-2 rounded hover:bg-gray-700 transition" onClick={toggleFormTambah}>Tambah Data</button>
                         </div>
                     </div>
 
@@ -154,7 +154,7 @@ export default function Field() {
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
-                                    <th scope="col" className="px-6 py-3 w-1">Id</th>
+                                    <th scope="col" className="px-6 py-3 w-1">No.</th>
                                     <th scope="col" className="px-6 py-3">Mapel</th>
                                     <th scope="col" className="px-6 py-3">Aksi</th>
                                 </tr>
@@ -162,9 +162,9 @@ export default function Field() {
                             <tbody>
                                 {
                                 mapel.length > 0 ? (
-                                    mapel.map((item) => (
+                                    mapel.map((item, index) => (
                                         <tr key={item.id} className="odd:bg-white even:bg-gray-50 border-b">
-                                            <td className="px-6 py-4 w-1">{item.id}</td>
+                                            <td className="px-6 py-4 w-1">{index + 1}</td>
                                             <td className="px-6 py-4">{item.mapel}</td>
                                             <td className="px-6 py-4 space-x-2">
                                                 <button

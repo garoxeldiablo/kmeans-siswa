@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import Infouser from "../components/info-user";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RingLoader } from "react-spinners";

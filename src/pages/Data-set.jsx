@@ -153,7 +153,7 @@ export default function Dataset() {
                         </div>
                         <div className="p-2">
                             <h1 className="text-3xl font-semibold text-white">Data Siswa</h1>
-                            <h3 className="text-gray-50">Data Siswa SDN XXXXXXX</h3>
+                            <h3 className="text-gray-50">DATA SISWA SD NEGERI 064987 Jalan SM. Raja KM. 5,5, Kelurahan Harjosari I, Medan Amplas, Kota Medan, Sumatera Utara 20147 </h3>
                             <button className="bg-gray-800 text-white text-sm p-2 mt-2 rounded hover:bg-gray-700 transition" onClick={toggleFormTambah}>Tambah Data</button>
                         </div>
                     </div>

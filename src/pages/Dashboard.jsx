@@ -2,6 +2,11 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { RingLoader } from "react-spinners";
 
+import ds1 from "../assets/ds1.jpg";
+import ds2 from "../assets/ds2.jpg";
+import ds3 from "../assets/ds3.jpg";
+
+
 export default function Dashboard(){
 
     const [dataset, setDataset] = useState("");
@@ -46,14 +51,14 @@ export default function Dashboard(){
                 </div>
                 <div className="p-2">
                     <h1 className="text-3xl font-semibold text-white">Dashboard</h1>
-                    <h3 className="text-gray-50">Menentukan pola pembelajaran siswa berdasarkan hasil klasterisasi untuk membantu dalam pengambilan keputusan akademik.</h3>
+                    <h3 className="text-gray-50">Dashboard adalah tampilan visual yang menyajikan data penting secara ringkas dan interaktif untuk membantu pemantauan, analisis, dan pengambilan keputusan. Biasanya digunakan dalam bisnis, teknologi, dan sistem manajemen.</h3>
                 </div>
             </div>
 
             <div class="space-y-4 mb-4">
 
-                <div class="relative flex items-center justify-between rounded bg-[url('https://images.deccanherald.com/deccanherald%2Fimport%2Fsites%2Fdh%2Ffiles%2Farticleimages%2F2021%2F08%2F31%2Fbooks-istock-1023499-1629912600-1025292-1630356943.jpg?auto=format%2Ccompress&fmt=webp&fit=max&format=webp&q=70&w=400&dpr=2')] bg-cover bg-center p-4">
-                    <div class="absolute inset-0 bg-gradient-to-r from-black/100 to-black/30 rounded"></div>
+            <div className="relative flex items-center justify-between rounded bg-cover bg-center p-4" style={{ backgroundImage: `url(${ds1})` }}>                    
+                <div class="absolute inset-0 bg-gradient-to-r from-black/100 to-black/30 rounded"></div>
                         <div class="relative z-10">
                         <p class="text-lg text-gray-200">
                             Mata Pelajaran
@@ -68,24 +73,7 @@ export default function Dashboard(){
                     </div>
                 </div>
 
-
-                {/* <div class="relative flex items-center justify-between rounded bg-[url('https://ochsner-craft.s3.amazonaws.com/imager/blogarticleimages/61930/ThinkstockPhotos-598676944-picking-out-a-gym-19513a3bc6.jpg')] bg-cover p-4">
-                    <div class="absolute inset-0 bg-gradient-to-r from-black/100 to-black/30 rounded"></div>
-                        <div class="relative z-10">
-                        <p class="text-lg text-gray-200">
-                            Data Siswa
-                        </p>
-                        {loading ? (
-                            <div class="flex itemsc-center justify-center">
-                                <RingLoader/>
-                            </div>
-                        ):(
-                            <h1 class="text-4xl font-bold text-white">{subkriteria}</h1>
-                        )}
-                    </div>
-                </div> */}
-
-                <div class="relative flex items-center justify-between rounded bg-[url('https://awsimages.detik.net.id/community/media/visual/2024/07/08/semangat-siswa-sd-masuk-sekolah-hari-pertama_169.jpeg?w=1200')] bg-center p-4">
+                <div class="relative flex items-center justify-between rounded bg-center p-4" style={{ backgroundImage: `url(${ds2})` }}>
                     <div class="absolute inset-0 bg-gradient-to-r from-black/100 to-black/30 rounded"></div>
                         <div class="relative z-10">
                         <p class="text-lg text-gray-200">
@@ -101,7 +89,7 @@ export default function Dashboard(){
                     </div>
                 </div>
 
-                <div class="relative flex items-center justify-between rounded bg-[url('https://www.unsulbarnews.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-16-at-22.31.45.jpeg')] bg-cover bg-center p-4">
+                <div class="relative flex items-center justify-between rounded bg-cover bg-center p-4" style={{ backgroundImage: `url(${ds3})` }}>
                     <div class="absolute inset-0 bg-gradient-to-r from-black/100 to-black/30 rounded"></div>
                         <div class="relative z-10">
                         <p class="text-lg text-gray-200">
