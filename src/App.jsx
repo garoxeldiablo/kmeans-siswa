@@ -31,49 +31,49 @@ function App() {
             <Route path="/signin" element={<Signin/>}/>
 
             <Route path="/dashboard" element={
-              <PrivateRoute requiredRole={["Super Admin", "Staff TU"]}>
+              <PrivateRoute requiredRole={["Super Admin", "Staff TU", "Guru"]}>
                 <Dashboard />
               </PrivateRoute>
             }/>
 
             <Route path="/field" element={
-              <PrivateRoute requiredRole={["Super Admin", "Staff TU"]}>
+              <PrivateRoute requiredRole={["Super Admin", "Staff TU", "Guru"]}>
                 <Field />
               </PrivateRoute>
             }/>
 
             <Route path="/dataset" element={
-              <PrivateRoute requiredRole={["Super Admin" , "Staff TU"]}>
+              <PrivateRoute requiredRole={["Super Admin" , "Staff TU", "Guru"]}>
                 <Dataset />
               </PrivateRoute>
             }/>
 
             <Route path="/persiapandata" element={
-              <PrivateRoute requiredRole={["Super Admin", "Staff TU"]}>
+              <PrivateRoute requiredRole={["Super Admin", "Staff TU", "Guru"]}>
                 <PersiapanData />
               </PrivateRoute>
             }/>
 
             <Route path="/persiapandata/input/:siswa_id" element={
-              <PrivateRoute requiredRole={["Super Admin" , "Staff TU"]}>
+              <PrivateRoute requiredRole={["Super Admin" , "Staff TU", "Guru"]}>
                 <InputData />
               </PrivateRoute>
             }/>
 
             <Route path="/persiapandata/review" element={
-              <PrivateRoute requiredRole={["Super Admin" , "Staff TU"]}>
+              <PrivateRoute requiredRole={["Super Admin" , "Staff TU", "Guru"]}>
                 <Datareview />
               </PrivateRoute>
             }/>
 
             <Route path="/perhitungan" element={
-              <PrivateRoute requiredRole={["Super Admin" , "Staff TU"]}>
+              <PrivateRoute requiredRole={["Super Admin" , "Staff TU", "Guru"]}>
                 <Perhitungan />
               </PrivateRoute>
             }/>
 
             <Route path="/perhitungan/kmeans" element={
-              <PrivateRoute requiredRole={["Super Admin" , "Staff TU"]}>
+              <PrivateRoute requiredRole={["Super Admin" , "Staff TU", "Guru"]}>
                 <Clustering />
               </PrivateRoute>
             }/>

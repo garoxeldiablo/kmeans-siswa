@@ -213,7 +213,7 @@ export default function Clustering() {
                     <Scatter
                       name="Centroid"
                       data={centroidPoints}
-                      fill="#000"
+                      fill="#ffc403"
                       shape="star"
                       legendType="star"
                     />
