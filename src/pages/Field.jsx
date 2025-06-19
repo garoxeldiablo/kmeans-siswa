@@ -155,7 +155,7 @@ export default function Field() {
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" className="px-6 py-3 w-1">No.</th>
-                                    <th scope="col" className="px-6 py-3">Mapel</th>
+                                    <th scope="col" className="px-6 py-3">Mata Pelajaran</th>
                                     <th scope="col" className="px-6 py-3">Aksi</th>
                                 </tr>
                             </thead>

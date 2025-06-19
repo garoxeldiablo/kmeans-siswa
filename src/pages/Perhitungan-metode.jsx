@@ -213,10 +213,10 @@ export default function Clustering() {
                     <Scatter
                       name="Centroid"
                       data={centroidPoints}
-                      fill="#ffc403"
+                      fill="#000000"
                       shape="star"
                       legendType="star"
-                    />
+                    />  
                     <Tooltip
                       cursor={{ strokeDasharray: "3 3" }}
                       content={({ active, payload, label }) => {
@@ -274,8 +274,6 @@ export default function Clustering() {
                 </select>
               </div>
             </div>
-
-
 
             <div>
               <h3 className="font-semibold text-xl text-gray-800 mb-2">Data Hasil Klasterisasi</h3>
