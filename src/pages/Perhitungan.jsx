@@ -88,7 +88,7 @@ export default function Perhitungan(){
                                 <tr>
                                     <th className="px-6 py-3">#</th>
                                     <th className="px-6 py-3">No</th>
-                                    <th className="px-6 py-3">NIS</th>
+                                    <th className="px-6 py-3">Nomor Induk</th>
                                     <th className="px-6 py-3">Nama</th>
                                     {mapel.length > 0 ? (
                                         mapel.map((item) => (

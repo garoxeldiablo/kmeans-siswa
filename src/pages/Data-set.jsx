@@ -170,7 +170,7 @@ export default function Dataset() {
                                     <th scope="col" className="px-6 py-3">NO</th>
                                     <th scope="col" className="px-6 py-3">Nomor Induk</th>
                                     <th scope="col" className="px-6 py-3">Nama</th>
-                                    <th scope="col" className="px-6 py-3">Kelamin</th>
+                                    <th scope="col" className="px-6 py-3">Jenis Kelamin</th>
                                     <th scope="col" className="px-6 py-3">Kelas</th>
                                     <th scope="col" className="px-6 py-3">Aksi</th>
                                 </tr>

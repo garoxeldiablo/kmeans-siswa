@@ -54,7 +54,7 @@ export default function PersiapanData(){
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
-                            <th scope="col" className="px-6 py-3">NIS</th>
+                            <th scope="col" className="px-6 py-3">Nomor Induk</th>
                             <th scope="col" className="px-6 py-3">Nama</th>
                             <th scope="col" className="px-6 py-3">Aksi</th>
                         </tr>
